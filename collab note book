@@ -1,0 +1,43 @@
+                                                                            #forming a connection to drive. 
+from google.colab import drive
+drive.mount('/content/drive',force_remount=True)                            #provide the veryfication key that u get via email and the connection is established.
+
+import pandas                                                               #for importing datsets, reading the dataset and establishment a dataframe. 
+import matplotlib.pyplot as plt                                             #for visualization,statistics and animation.    
+ 
+df1 = pandas.read_csv('/content/drive/My Drive/Dataset/bitcoin.csv')        #df1 is the dataframe for bitcoin data set.
+df2 = pandas.read_csv('/content/drive/My Drive/Dataset/winequality.csv')    #df2 is the dataframe for winequality data set.
+print(type(df1))
+print(type(df2))
+
+df1.head(2)                                                                 #provides the header and first 2 rows of the bitcoin dataframme.
+
+df2.head(2)                                                                 #provides the header and first 2 rows of the winequality dataframme.
+
+df1.describe()                                                              #provides a brief descriptiion of bitcoin dataframe.
+
+df2.describe()                                                              #provides a brief descriptiion of winequality dataframe.
+
+import numpy as np                                                          #NumPy is very useful for performing mathematical and logical operations on Arrays.
+a=df2['quality'].unique()                                                   #Simple analyzing code for winequality data set.
+a_values=np.array(df2['quality'])
+a_values.sort()
+a,a_count=np.unique(a_values,return_counts=True)
+print(a)
+print(a_count)
+
+plt.bar(a,a_count,0.5)                                                      #bar plot on various quality labels vs their frequencies for wine quality data set.
+plt.xlabel('Quality Of Wine')
+plt.ylabel('Frequency')
+plt.show
+
+x=df1['Date']                                                               #Calculating gross profit on bitcoin data set , gross profit or loss = opening value - closing value of that day.
+y  = df1['Open']- df1['Close']
+date = np.array(x)
+gross = np.array(y)
+
+plt.plot(x,y,'bo-')                                                         #simple plot on date vs gross profit for bitcoin data set.
+plt.xlabel('Date')
+plt.ylabel('Gross')
+plt.xticks(rotation="vertical")
+plt.show()
